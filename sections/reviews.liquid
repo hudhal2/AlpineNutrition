@@ -1,0 +1,430 @@
+{% comment %}
+  Alpine Nutrition — Reviews Section
+  File: sections/reviews.liquid
+
+  Usage: Add to any Shopify page via the theme editor, or include in a template:
+    {% section 'reviews' %}
+
+  Customizable via schema settings in the theme editor.
+{% endcomment %}
+
+<style>
+  .alpine-reviews {
+    padding: {{ section.settings.padding_top }}px 1.5rem {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background_color }};
+  }
+  .alpine-reviews__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .alpine-reviews__header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+  @media (min-width: 768px) {
+    .alpine-reviews__header {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+  .alpine-reviews__eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2d7dd2;
+    margin-bottom: 0.75rem;
+  }
+  .alpine-reviews__title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    color: #0d1f3c;
+    margin: 0;
+  }
+  .alpine-reviews__aggregate {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  @media (min-width: 768px) {
+    .alpine-reviews__aggregate { margin-top: 0; }
+  }
+  .alpine-reviews__aggregate-score {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 3.8rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: #0d1f3c;
+  }
+  .alpine-reviews__stars {
+    color: #2d7dd2;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+  .alpine-reviews__count {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(13,31,60,0.4);
+    margin-top: 0.2rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .alpine-reviews__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  @media (min-width: 640px)  { .alpine-reviews__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .alpine-reviews__grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .alpine-review-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow:
+      0 4px 24px rgba(13,31,60,0.07),
+      0 1px 6px rgba(13,31,60,0.04);
+    border: 1px solid rgba(13,31,60,0.06);
+    display: flex;
+    flex-direction: column;
+  }
+  .alpine-review-card__stars {
+    color: #2d7dd2;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.875rem;
+  }
+  .alpine-review-card__text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: #0d1f3c;
+    flex: 1;
+    margin-bottom: 1.5rem;
+  }
+  .alpine-review-card__author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .alpine-review-card__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fff;
+    flex-shrink: 0;
+    background: #0d1f3c;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .alpine-review-card__name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #0d1f3c;
+  }
+  .alpine-review-card__meta {
+    font-size: 0.72rem;
+    color: rgba(13,31,60,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .alpine-reviews__cta {
+    text-align: center;
+    margin-top: 3rem;
+  }
+  .alpine-reviews__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.875rem 2.2rem;
+    border-radius: 4px;
+    background: #2d7dd2;
+    color: #fff;
+    border: 2px solid #2d7dd2;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 18px rgba(45,125,210,0.3);
+  }
+  .alpine-reviews__btn:hover {
+    background: #1a6bbf;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(45,125,210,0.4);
+  }
+  .alpine-reviews__btn:focus-visible {
+    outline: 3px solid #2d7dd2;
+    outline-offset: 3px;
+  }
+</style>
+
+<section class="alpine-reviews" id="alpine-reviews">
+  <div class="alpine-reviews__inner">
+
+    <!-- Header -->
+    <div class="alpine-reviews__header">
+      <div>
+        <p class="alpine-reviews__eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="alpine-reviews__title">{{ section.settings.heading | newline_to_br }}</h2>
+      </div>
+      <div class="alpine-reviews__aggregate">
+        <span class="alpine-reviews__aggregate-score">{{ section.settings.aggregate_score }}</span>
+        <div>
+          <div class="alpine-reviews__stars">★★★★★</div>
+          <p class="alpine-reviews__count">{{ section.settings.review_count_label }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Review cards -->
+    <div class="alpine-reviews__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          <div class="alpine-review-card" {{ block.shopify_attributes }}>
+            <div class="alpine-review-card__stars">
+              {% for i in (1..block.settings.star_rating) %}★{% endfor %}
+            </div>
+            <p class="alpine-review-card__text">"{{ block.settings.review_text }}"</p>
+            <div class="alpine-review-card__author">
+              <div class="alpine-review-card__avatar"
+                   style="background: {{ block.settings.avatar_color }};">
+                {{ block.settings.reviewer_initials }}
+              </div>
+              <div>
+                <p class="alpine-review-card__name">{{ block.settings.reviewer_name }}</p>
+                <p class="alpine-review-card__meta">{{ block.settings.reviewer_meta }} · Verified Buyer</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_cta %}
+      <div class="alpine-reviews__cta">
+        <a href="{{ section.settings.cta_url }}" class="alpine-reviews__btn">
+          {{ section.settings.cta_label }}
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Alpine Reviews",
+  "tag": "section",
+  "class": "section-alpine-reviews",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "REAL RESULTS.\nREAL PEOPLE."
+    },
+    {
+      "type": "text",
+      "id": "aggregate_score",
+      "label": "Aggregate score",
+      "default": "4.9"
+    },
+    {
+      "type": "text",
+      "id": "review_count_label",
+      "label": "Review count label",
+      "default": "Verified Reviews"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 96
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Show CTA button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA button label",
+      "default": "Shop Alpine Reset"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA button URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "range",
+          "id": "star_rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Star rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text",
+          "default": "Took it before a big night out and woke up feeling completely normal."
+        },
+        {
+          "type": "text",
+          "id": "reviewer_initials",
+          "label": "Reviewer initials (for avatar)",
+          "default": "JD"
+        },
+        {
+          "type": "color",
+          "id": "avatar_color",
+          "label": "Avatar background color",
+          "default": "#0d1f3c"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_name",
+          "label": "Reviewer name / label",
+          "default": "Verified Customer"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_meta",
+          "label": "Reviewer meta (age, type)",
+          "default": "26M"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Alpine Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "Took it before a fraternity formal and woke up actually feeling like a person — no headache, no brain fog, just ready to go.",
+            "reviewer_initials": "CS",
+            "avatar_color": "#0d1f3c",
+            "reviewer_name": "College Student",
+            "reviewer_meta": "21M"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "I run half marathons and this is the first hangover supplement that doesn't wreck my training — I was back in the gym by 9am.",
+            "reviewer_initials": "RA",
+            "avatar_color": "#1a3560",
+            "reviewer_name": "Recreational Athlete",
+            "reviewer_meta": "34F"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "I was skeptical but the ingredient list is actually serious — you can tell this isn't just B vitamins and sugar like everything else.",
+            "reviewer_initials": "YP",
+            "avatar_color": "#234a85",
+            "reviewer_name": "Young Professional",
+            "reviewer_meta": "27M"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "Two glasses of wine used to ruin my whole Saturday. I haven't had that problem since I started taking Alpine before dinner out.",
+            "reviewer_initials": "WD",
+            "avatar_color": "#0d1f3c",
+            "reviewer_name": "Weekend Drinker",
+            "reviewer_meta": "45F"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "The tingle kicks in about 15 minutes after you drink it and honestly that alone makes you feel like it's doing something. And it is.",
+            "reviewer_initials": "CS",
+            "avatar_color": "#1a3560",
+            "reviewer_name": "College Senior",
+            "reviewer_meta": "22F"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "star_rating": 5,
+            "review_text": "Had a bachelor party on a Friday and PRed a deadlift on Sunday. First time that has ever happened in my life.",
+            "reviewer_initials": "CF",
+            "avatar_color": "#234a85",
+            "reviewer_name": "CrossFit Athlete",
+            "reviewer_meta": "31M"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
