@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alpine Nutrition | Alpine Reset — Hangover Defense Drink Mix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,700;1,900&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy:   { DEFAULT: '#0d1f3c', 800: '#142a52', 700: '#1a3560', 600: '#234a85' },
+            alpine: { DEFAULT: '#2d7dd2', 400: '#4fa3e8', 200: '#8fc8e8', 100: '#d4ebf7', 50: '#eef5fb' },
+            peach:  { DEFAULT: '#f4956a', 600: '#e8722a', 200: '#fad4bc', 100: '#fdeee6' },
+            snow:   '#f4f9fd',
+          },
+          fontFamily: {
+            display: ['Barlow Condensed', 'sans-serif'],
+            body:    ['DM Sans', 'sans-serif'],
+          },
+          letterSpacing: {
+            tightest: '-0.04em',
+            tight:    '-0.02em',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #f4f9fd;
+      color: #0d1f3c;
+      overflow-x: hidden;
+    }
+
+    /* ── Product float animation ── */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-12px); }
+    }
+    .product-float { animation: float 5s ease-in-out infinite; }
+
+    /* ── Grain texture overlay ── */
+    .grain::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    /* ── Marquee animation ── */
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-track { animation: marquee 28s linear infinite; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+    /* ── Announcement ticker ── */
+    @keyframes tick {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .tick-track { animation: tick 20s linear infinite; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-32px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(32px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(13, 31, 60, 0.97);
+      box-shadow: 0 2px 32px rgba(13,31,60,0.25);
+      backdrop-filter: blur(12px);
+    }
+    .nav-link {
+      position: relative;
+      color: rgba(255,255,255,0.82);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.25s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute; left: 0; bottom: -3px;
+      width: 0; height: 2px;
+      background: #f4956a;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Buttons ── */
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #f4956a;
+      color: #0d1f3c;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border-radius: 4px;
+      border: 2px solid #f4956a;
+      cursor: pointer;
+      transition: background 0.2s ease,
+                  border-color 0.2s ease,
+                  transform 0.15s ease,
+                  box-shadow 0.2s ease;
+      box-shadow: 0 4px 16px rgba(244,149,106,0.35),
+                  0 1px 4px rgba(244,149,106,0.2);
+    }
+    .btn-primary:hover {
+      background: #e8722a;
+      border-color: #e8722a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(244,149,106,0.45),
+                  0 2px 6px rgba(244,149,106,0.25);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:focus-visible { outline: 3px solid #f4956a; outline-offset: 3px; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: transparent;
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border-radius: 4px;
+      border: 2px solid rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: background 0.2s ease,
+                  border-color 0.2s ease,
+                  transform 0.15s ease;
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    /* ── Product card shadow ── */
+    .product-card {
+      box-shadow: 0 8px 40px rgba(13,31,60,0.12),
+                  0 2px 10px rgba(13,31,60,0.06),
+                  0 0 0 1px rgba(13,31,60,0.04);
+    }
+
+    /* ── Accordion ── */
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                  padding 0.3s ease;
+    }
+    .faq-body.open { max-height: 300px; }
+    .faq-icon { transition: transform 0.3s ease; }
+    .faq-icon.open { transform: rotate(45deg); }
+
+    /* ── Review card ── */
+    .review-card {
+      box-shadow: 0 4px 24px rgba(13,31,60,0.08),
+                  0 1px 6px rgba(13,31,60,0.04);
+    }
+
+    /* ── Badge pill ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: rgba(143,200,232,0.18);
+      border: 1px solid rgba(143,200,232,0.4);
+      color: #8fc8e8;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+    }
+
+    /* ── Science card ── */
+    .science-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+    .science-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(143,200,232,0.3);
+      transform: translateY(-4px);
+    }
+
+    /* ── Newsletter input ── */
+    .email-input {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      border-radius: 4px;
+      padding: 0.85rem 1.2rem;
+      font-size: 0.95rem;
+      width: 100%;
+      transition: border-color 0.2s ease, background 0.2s ease;
+      outline: none;
+    }
+    .email-input::placeholder { color: rgba(255,255,255,0.4); }
+    .email-input:focus {
+      border-color: #f4956a;
+      background: rgba(255,255,255,0.12);
+    }
+
+    /* ── Stat number ── */
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    /* ── Icon circle ── */
+    .icon-circle {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+
+<body class="font-body">
+
+  <!-- ═══════════════════════════════════════
+       ANNOUNCEMENT BAR
+  ═══════════════════════════════════════ -->
+  <div class="bg-navy-700 py-2 text-white text-xs font-semibold tracking-widest uppercase overflow-hidden">
+    <div class="tick-track flex whitespace-nowrap" style="width: max-content;">
+      <span class="px-10">Free shipping on orders $60+</span>
+      <span class="text-peach">✦</span>
+      <span class="px-10">New: Peach Mango Flavor — available now</span>
+      <span class="text-peach">✦</span>
+      <span class="px-10">3x electrolytes vs. leading sports drinks</span>
+      <span class="text-peach">✦</span>
+      <span class="px-10">Free shipping on orders $60+</span>
+      <span class="text-peach">✦</span>
+      <span class="px-10">New: Peach Mango Flavor — available now</span>
+      <span class="text-peach">✦</span>
+      <span class="px-10">3x electrolytes vs. leading sports drinks</span>
+      <span class="text-peach">✦</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════ -->
+  <nav id="main-nav" class="py-4 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#" class="flex items-center flex-shrink-0" aria-label="Alpine Nutrition home">
+        <img src="brand_assets/AlpineLogo.JPG" alt="Alpine" class="h-8 md:h-9"
+             style="filter: invert(1) brightness(10); opacity: 0.95;" />
+      </a>
+
+      <!-- Nav Links (desktop) -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#product" class="nav-link">Shop</a>
+        <a href="#science" class="nav-link">Science</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </div>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-4">
+        <a href="#product" class="btn-primary text-sm px-5 py-2.5 hidden sm:inline-flex">
+          Shop Now
+        </a>
+        <!-- Cart icon -->
+        <button class="text-white opacity-80 hover:opacity-100 transition-opacity duration-200 p-1" aria-label="Cart">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+        </button>
+        <!-- Mobile menu -->
+        <button class="md:hidden text-white opacity-80 hover:opacity-100 transition-opacity duration-200 p-1" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════ -->
+  <section class="relative overflow-hidden grain" style="background: linear-gradient(145deg, #080f1e 0%, #0d1f3c 40%, #1a3560 70%, #234a85 100%); min-height: 100vh; margin-top: -73px; padding-top: 73px;">
+
+    <!-- Radial glow accents -->
+    <div style="position:absolute; top:-10%; right:-5%; width:600px; height:600px; border-radius:50%; background: radial-gradient(circle, rgba(45,125,210,0.22) 0%, transparent 70%); pointer-events:none;"></div>
+    <div style="position:absolute; bottom:10%; left:-10%; width:500px; height:500px; border-radius:50%; background: radial-gradient(circle, rgba(244,149,106,0.12) 0%, transparent 70%); pointer-events:none;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col lg:flex-row items-center min-h-screen pt-20 pb-32 gap-12 lg:gap-0">
+
+      <!-- Left: Text content -->
+      <div class="flex-1 lg:pr-8 text-center lg:text-left reveal-left" style="transition-delay: 0.1s;">
+        <div class="badge mb-6 inline-flex">
+          <span>★</span> #1 Hangover Defense Formula
+        </div>
+
+        <h1 class="font-display font-black italic text-white leading-none mb-6"
+            style="font-size: clamp(4rem, 9vw, 7.5rem); letter-spacing: -0.03em; line-height: 0.92;">
+          RESET.<br/>
+          <span style="color: #f4956a;">RECOVER.</span><br/>
+          RISE.
+        </h1>
+
+        <p class="text-alpine-200 mb-3 font-semibold uppercase text-xs" style="letter-spacing: 0.06em;">
+          Alpine Reset &mdash; Hangover Defense&reg;
+        </p>
+
+        <p class="text-white/70 mb-10 max-w-md mx-auto lg:mx-0 px-2 lg:px-0" style="font-size: 1.05rem; line-height: 1.75;">
+          Engineered to restore what a long night takes away. Three times the electrolytes, rapid hydration technology, and a next-day recovery blend — so you wake up human again.
+        </p>
+
+        <!-- Stats row -->
+        <div class="flex items-center justify-center lg:justify-start gap-5 md:gap-8 mb-10">
+          <div class="text-center min-w-0">
+            <div class="stat-num text-white" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">3×</div>
+            <div class="text-white/50 uppercase mt-0.5" style="font-size:0.65rem; letter-spacing:0.05em;">Electrolytes</div>
+          </div>
+          <div class="w-px h-10 bg-white/15 flex-shrink-0"></div>
+          <div class="text-center min-w-0">
+            <div class="stat-num text-white" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">15</div>
+            <div class="text-white/50 uppercase mt-0.5" style="font-size:0.65rem; letter-spacing:0.05em;">Servings</div>
+          </div>
+          <div class="w-px h-10 bg-white/15 flex-shrink-0"></div>
+          <div class="text-center min-w-0">
+            <div class="stat-num text-white" style="font-size: clamp(1.8rem, 4vw, 2.6rem);">4.9</div>
+            <div class="text-white/50 uppercase mt-0.5" style="font-size:0.65rem; letter-spacing:0.05em;">★ Rating</div>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <a href="#product" class="btn-primary">Shop Alpine Reset</a>
+          <a href="#science" class="btn-outline">See the Science</a>
+        </div>
+      </div>
+
+      <!-- Right: Product image -->
+      <div class="flex-1 flex items-center justify-center lg:justify-end reveal-right" style="transition-delay: 0.2s;">
+        <div class="relative" style="width: min(420px, 90vw);">
+          <!-- Glow behind product -->
+          <div style="position:absolute; inset:-40px; border-radius:50%; background: radial-gradient(circle, rgba(143,200,232,0.18) 0%, transparent 65%); pointer-events:none;"></div>
+          <img src="brand_assets/AlpineMockup.png"
+               alt="Alpine Reset — Peach Mango Hangover Defense Drink Mix"
+               class="product-float"
+               style="width:100%; position:relative; z-index:2; filter: drop-shadow(0 30px 60px rgba(13,31,60,0.6)) drop-shadow(0 8px 20px rgba(45,125,210,0.25));" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Mountain silhouette SVG at bottom of hero -->
+    <div style="position:absolute; bottom:0; left:0; right:0; z-index:2; pointer-events:none;">
+      <svg viewBox="0 0 1440 220" preserveAspectRatio="none" style="width:100%; height:220px; display:block;">
+        <!-- Back range -->
+        <polygon points="0,220 0,160 120,95 200,130 310,65 420,110 520,50 620,90 720,30 840,80 950,55 1050,100 1160,45 1280,90 1380,60 1440,80 1440,220" fill="#0d1f3c" opacity="0.6"/>
+        <!-- Mid range -->
+        <polygon points="0,220 0,185 80,150 180,120 280,145 380,105 480,130 580,90 680,120 780,75 900,110 1000,85 1100,115 1200,80 1320,105 1440,85 1440,220" fill="#0d1f3c" opacity="0.8"/>
+        <!-- Front range — fills to bottom -->
+        <polygon points="0,220 0,200 60,180 140,160 230,175 320,148 420,165 510,140 600,158 700,130 800,155 900,135 1000,158 1100,140 1200,162 1300,145 1380,165 1440,148 1440,220" fill="#0d1f3c"/>
+      </svg>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div style="position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); z-index:10;" class="flex flex-col items-center gap-2 opacity-40">
+      <span class="text-white text-xs uppercase tracking-widest">Scroll</span>
+      <div style="width:1px; height:40px; background: linear-gradient(to bottom, rgba(255,255,255,0.6), transparent);"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       MARQUEE STRIP
+  ═══════════════════════════════════════ -->
+  <section class="bg-peach overflow-hidden py-4">
+    <div class="marquee-wrap">
+      <div class="marquee-track flex whitespace-nowrap items-center" style="width: max-content;">
+        <!-- Repeat twice for seamless loop -->
+        <template id="ticker-content">
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">3X Electrolytes</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Rapid Hydration</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Next Day Recovery</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Hangover Defense®</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">All Natural</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+          <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">No Artificial Colors</span>
+          <span class="text-navy/40 text-2xl">◆</span>
+        </template>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">3X Electrolytes</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Rapid Hydration</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Next Day Recovery</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Hangover Defense®</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">All Natural</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">No Artificial Colors</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">3X Electrolytes</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Rapid Hydration</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Next Day Recovery</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">Hangover Defense®</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">All Natural</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+        <span class="font-display font-black italic text-navy uppercase text-xl px-8" style="letter-spacing: 0.04em;">No Artificial Colors</span>
+        <span class="text-navy/40 text-2xl">◆</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PRODUCT SECTION
+  ═══════════════════════════════════════ -->
+  <section id="product" class="py-24 md:py-32 px-6 md:px-12" style="background: #f4f9fd;">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Section label -->
+      <div class="text-center mb-16 reveal">
+        <p class="text-alpine font-semibold uppercase tracking-widest text-sm mb-3">Our Flagship Product</p>
+        <h2 class="font-display font-black italic text-navy" style="font-size: clamp(2.8rem, 5vw, 4.2rem); letter-spacing: -0.03em; line-height: 0.95;">
+          ENGINEERED FOR<br/>THE MORNING AFTER
+        </h2>
+      </div>
+
+      <!-- Product card -->
+      <div class="product-card bg-white rounded-2xl overflow-hidden grid lg:grid-cols-2 gap-0 reveal">
+
+        <!-- Product image panel -->
+        <div class="relative flex items-center justify-center p-10"
+             style="background: linear-gradient(160deg, #c8e6f7 0%, #d4ebf7 35%, #a8d5ee 65%, #7bbfe5 100%); min-height: 520px;">
+          <!-- Radial glow behind product -->
+          <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:320px; height:320px; border-radius:50%; background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%); pointer-events:none;"></div>
+          <!-- Mountain decoration -->
+          <div style="position:absolute; bottom:0; left:0; right:0; pointer-events:none;">
+            <svg viewBox="0 0 600 140" preserveAspectRatio="none" style="width:100%; height:140px; display:block;">
+              <polygon points="0,140 0,90 70,50 140,80 220,28 300,65 380,20 460,55 530,35 600,48 600,140" fill="rgba(45,125,210,0.12)"/>
+              <polygon points="0,140 0,110 60,88 130,100 210,72 290,88 370,65 450,80 530,68 600,78 600,140" fill="rgba(45,125,210,0.08)"/>
+              <polygon points="0,140 0,125 80,108 180,118 270,100 360,112 450,98 540,110 600,102 600,140" fill="rgba(45,125,210,0.05)"/>
+            </svg>
+          </div>
+          <img src="brand_assets/AlpineMockup.png"
+               alt="Alpine Reset — Peach Mango"
+               class="product-float"
+               style="width: min(380px, 85%); position:relative; z-index:2; filter: drop-shadow(0 24px 48px rgba(13,31,60,0.22)) drop-shadow(0 8px 16px rgba(13,31,60,0.12));" />
+        </div>
+
+        <!-- Product details panel -->
+        <div class="p-10 md:p-14 flex flex-col justify-center">
+          <p class="text-alpine font-semibold uppercase tracking-widest text-xs mb-2">Hangover Defense®</p>
+          <h3 class="font-display font-black italic text-navy mb-1" style="font-size: 3rem; letter-spacing: -0.02em; line-height: 0.9;">ALPINE RESET</h3>
+          <p class="text-navy/50 font-medium mb-6 text-sm uppercase tracking-wider">Peach Mango — Naturally Flavored</p>
+
+          <!-- Price & size -->
+          <div class="flex items-baseline gap-4 mb-8">
+            <span class="font-display font-black text-navy" style="font-size: 2.4rem;">$39.99</span>
+            <span class="text-navy/40 text-sm">10.58 oz (300g) · 15 Servings</span>
+          </div>
+
+          <!-- Benefits list -->
+          <div class="space-y-4 mb-10">
+            <div class="flex items-start gap-4">
+              <div class="icon-circle bg-alpine-100">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                  <path d="M8 12h8M12 8v8"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-navy text-sm">3× Electrolytes</p>
+                <p class="text-navy/50 text-sm" style="line-height:1.6;">vs. leading sports drinks — sodium, potassium, magnesium &amp; more</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="icon-circle bg-alpine-100">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                  <path d="M12 6v6l4 2"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-navy text-sm">Rapid Hydration+</p>
+                <p class="text-navy/50 text-sm" style="line-height:1.6;">Cellular absorption technology for faster rehydration overnight</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="icon-circle bg-alpine-100">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-navy text-sm">Next Day Recovery</p>
+                <p class="text-navy/50 text-sm" style="line-height:1.6;">B-vitamins, antioxidants, and liver support for true next-morning relief</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Flavor select -->
+          <div class="mb-6">
+            <p class="text-xs font-semibold text-navy/60 uppercase tracking-wider mb-3">Flavor</p>
+            <button class="flex items-center gap-3 px-5 py-3 rounded-lg border-2 border-alpine bg-alpine-50 text-navy font-semibold text-sm"
+                    style="transition: border-color 0.2s ease;">
+              <span style="width:14px; height:14px; border-radius:50%; background: linear-gradient(135deg, #f4956a, #fad4bc); display:inline-block; flex-shrink:0;"></span>
+              Peach Mango
+              <svg class="ml-auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+          </div>
+
+          <!-- CTA -->
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="#" class="btn-primary flex-1 text-center" style="font-size:1.1rem; padding: 1rem 1.5rem;">
+              Add to Cart — $39.99
+            </a>
+          </div>
+          <p class="text-navy/40 text-xs mt-4 text-center sm:text-left">Free shipping on orders over $60. 30-day money-back guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       BIG STATEMENT / CALLOUT
+  ═══════════════════════════════════════ -->
+  <section class="relative overflow-hidden grain py-28 md:py-36 px-6 md:px-12"
+           style="background: linear-gradient(135deg, #0d1f3c 0%, #1a3560 60%, #234a85 100%);">
+
+    <!-- Mountain bg -->
+    <div style="position:absolute; inset:0; pointer-events:none; overflow:hidden;">
+      <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" style="position:absolute; bottom:0; width:100%; height:70%; opacity:0.15;">
+        <polygon points="0,400 0,250 150,150 300,200 450,100 600,160 750,80 900,140 1050,90 1200,150 1350,100 1440,130 1440,400" fill="#4fa3e8"/>
+        <polygon points="0,400 0,300 100,240 250,270 380,210 520,250 650,185 800,230 950,200 1100,240 1250,205 1440,230 1440,400" fill="#2d7dd2" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center reveal">
+      <div class="badge mb-8 mx-auto">The Alpine Promise</div>
+      <h2 class="font-display font-black italic text-white mb-6"
+          style="font-size: clamp(3.2rem, 7vw, 6.5rem); letter-spacing: -0.03em; line-height: 0.9;">
+        WAKE UP READY.<br/>
+        <span style="color: #f4956a;">NOT REGRETFUL.</span>
+      </h2>
+      <p class="text-white/65 max-w-2xl mx-auto mb-10" style="font-size: 1.1rem; line-height: 1.8;">
+        Most mornings after are a coin flip. Alpine Reset loads the deck in your favor — with a recovery formula built for real recovery, not just hydration theater.
+      </p>
+      <a href="#product" class="btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
+        Try Alpine Reset Today
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SCIENCE SECTION
+  ═══════════════════════════════════════ -->
+  <section id="science" class="relative overflow-hidden grain py-24 md:py-32 px-6 md:px-12"
+           style="background: #080f1e;">
+
+    <!-- Radial glow -->
+    <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); width:800px; height:400px; background: radial-gradient(ellipse at top, rgba(45,125,210,0.12) 0%, transparent 70%); pointer-events:none;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+
+      <!-- Header -->
+      <div class="text-center mb-16 reveal">
+        <p class="text-alpine-200 font-semibold uppercase tracking-widest text-sm mb-3">The Formula</p>
+        <h2 class="font-display font-black italic text-white mb-6"
+            style="font-size: clamp(2.8rem, 5vw, 4.5rem); letter-spacing: -0.03em; line-height: 0.92;">
+          CLINICALLY BACKED.<br/>
+          <span style="color: #8fc8e8;">NO SHORTCUTS.</span>
+        </h2>
+        <p class="text-white/50 max-w-xl mx-auto" style="line-height: 1.75;">
+          Every ingredient in Alpine Reset is dosed at levels that actually work — not sprinkled in for the label.
+        </p>
+      </div>
+
+      <!-- Science cards -->
+      <div class="grid md:grid-cols-3 gap-6 mb-16">
+
+        <!-- Card 1 -->
+        <div class="science-card p-8 reveal" style="transition-delay: 0.05s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(45,125,210,0.2);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4fa3e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+              <path d="M8 12h8M12 8v8"/>
+            </svg>
+          </div>
+          <div class="stat-num text-white mb-1" style="font-size:2.5rem;">3×</div>
+          <h3 class="font-display font-bold text-white mb-3 uppercase tracking-wide" style="font-size: 1.2rem;">Electrolyte Complex</h3>
+          <p class="text-white/50 text-sm" style="line-height: 1.75;">
+            Sodium, potassium, magnesium, and chloride — at three times the concentration of leading sports drinks. Your cells need this.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="science-card p-8 reveal" style="transition-delay: 0.12s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(244,149,106,0.2);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f4956a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8h1a4 4 0 010 8h-1"/>
+              <path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/>
+              <line x1="6" y1="1" x2="6" y2="4"/>
+              <line x1="10" y1="1" x2="10" y2="4"/>
+              <line x1="14" y1="1" x2="14" y2="4"/>
+            </svg>
+          </div>
+          <div class="stat-num text-white mb-1" style="font-size:2.5rem;">6×</div>
+          <h3 class="font-display font-bold text-white mb-3 uppercase tracking-wide" style="font-size: 1.2rem;">B-Vitamin Stack</h3>
+          <p class="text-white/50 text-sm" style="line-height: 1.75;">
+            B1, B3, B5, B6, B12 — alcohol depletes all of them. Alpine Reset replenishes your full B-vitamin profile while you sleep.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="science-card p-8 reveal" style="transition-delay: 0.19s;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-6" style="background: rgba(143,200,232,0.15);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8fc8e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="stat-num text-white mb-1" style="font-size:2.5rem;">0</div>
+          <h3 class="font-display font-bold text-white mb-3 uppercase tracking-wide" style="font-size: 1.2rem;">Artificial Junk</h3>
+          <p class="text-white/50 text-sm" style="line-height: 1.75;">
+            No artificial colors, no proprietary blends, no hidden fillers. What you see on the label is exactly what's in your scoop.
+          </p>
+        </div>
+      </div>
+
+      <!-- Blueprint-style accordion claims -->
+      <div class="max-w-2xl mx-auto reveal" style="transition-delay: 0.25s;">
+        <div class="border-t border-white/10">
+          <div class="claim-item border-b border-white/10 py-5 cursor-pointer" onclick="toggleClaim(this)">
+            <div class="flex items-center justify-between">
+              <span class="text-white font-semibold text-sm uppercase tracking-wider">No Pixie Dusting</span>
+              <span class="claim-icon text-white/40 text-xl leading-none" style="transition: transform 0.25s ease;">+</span>
+            </div>
+            <div class="claim-body overflow-hidden" style="max-height:0; transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1);">
+              <p class="text-white/45 text-sm pt-4 pb-1" style="line-height:1.75;">
+                Every active ingredient in Alpine Reset is dosed at a clinically relevant amount. We never add ingredients just to put them on the label at sub-therapeutic doses.
+              </p>
+            </div>
+          </div>
+          <div class="claim-item border-b border-white/10 py-5 cursor-pointer" onclick="toggleClaim(this)">
+            <div class="flex items-center justify-between">
+              <span class="text-white font-semibold text-sm uppercase tracking-wider">No Proprietary Blends</span>
+              <span class="claim-icon text-white/40 text-xl leading-none" style="transition: transform 0.25s ease;">+</span>
+            </div>
+            <div class="claim-body overflow-hidden" style="max-height:0; transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1);">
+              <p class="text-white/45 text-sm pt-4 pb-1" style="line-height:1.75;">
+                Full label transparency. Every ingredient and every dose is listed explicitly — no hiding behind proprietary blend labels that mask the truth.
+              </p>
+            </div>
+          </div>
+          <div class="claim-item border-b border-white/10 py-5 cursor-pointer" onclick="toggleClaim(this)">
+            <div class="flex items-center justify-between">
+              <span class="text-white font-semibold text-sm uppercase tracking-wider">Third-Party Tested</span>
+              <span class="claim-icon text-white/40 text-xl leading-none" style="transition: transform 0.25s ease;">+</span>
+            </div>
+            <div class="claim-body overflow-hidden" style="max-height:0; transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1);">
+              <p class="text-white/45 text-sm pt-4 pb-1" style="line-height:1.75;">
+                Every batch of Alpine Reset is tested by an independent third-party lab for purity, potency, and contaminants before it ships to your door.
+              </p>
+            </div>
+          </div>
+          <div class="claim-item py-5 cursor-pointer" onclick="toggleClaim(this)">
+            <div class="flex items-center justify-between">
+              <span class="text-white font-semibold text-sm uppercase tracking-wider">All Natural Ingredients</span>
+              <span class="claim-icon text-white/40 text-xl leading-none" style="transition: transform 0.25s ease;">+</span>
+            </div>
+            <div class="claim-body overflow-hidden" style="max-height:0; transition: max-height 0.35s cubic-bezier(0.22,1,0.36,1);">
+              <p class="text-white/45 text-sm pt-4 pb-1" style="line-height:1.75;">
+                Natural fruit flavors, plant-based colors, and clean sweeteners only. No artificial anything — because if we wouldn't drink it, we won't sell it.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mountain decoration at bottom -->
+    <div style="position:absolute; bottom:0; left:0; right:0; pointer-events:none;">
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="width:100%; height:100px; display:block;">
+        <polygon points="0,100 0,60 180,20 360,50 540,10 720,40 900,15 1080,45 1260,20 1440,35 1440,100" fill="#f4f9fd" opacity="0.04"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       QUOTE / TESTIMONIAL HIGHLIGHT
+  ═══════════════════════════════════════ -->
+  <section class="py-24 md:py-32 px-6 md:px-12 overflow-hidden" style="background: #f4f9fd;">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+
+        <!-- Left: image with treatment -->
+        <div class="relative reveal-left">
+          <div class="rounded-2xl overflow-hidden" style="aspect-ratio: 4/5; position:relative;">
+            <img src="https://placehold.co/600x750/1a3560/8fc8e8?text=Alpine+Lifestyle" alt="Alpine Nutrition lifestyle"
+                 style="width:100%; height:100%; object-fit:cover; display:block;" />
+            <!-- Gradient overlay -->
+            <div style="position:absolute; inset:0; background: linear-gradient(to top, rgba(13,31,60,0.7) 0%, rgba(13,31,60,0.1) 60%, transparent 100%);"></div>
+            <!-- Color treatment -->
+            <div style="position:absolute; inset:0; background: rgba(45,125,210,0.15); mix-blend-mode: multiply;"></div>
+          </div>
+          <!-- Floating badge -->
+          <div style="position:absolute; bottom:-16px; right:-16px; background:#f4956a; border-radius:12px; padding: 1.2rem 1.5rem; box-shadow: 0 12px 40px rgba(244,149,106,0.4);">
+            <div class="font-display font-black italic text-navy" style="font-size:1.4rem; line-height:1;">4.9 ★</div>
+            <div class="text-navy/70 text-xs font-semibold mt-1">2,400+ Reviews</div>
+          </div>
+        </div>
+
+        <!-- Right: Quote -->
+        <div class="reveal-right">
+          <div class="text-peach mb-6" style="font-size: 5rem; line-height:1; font-family: Georgia, serif; opacity:0.6;">"</div>
+          <blockquote class="font-display font-black italic text-navy mb-8"
+                      style="font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.1;">
+            THE TASTE IS GREAT AND IT ACTUALLY WORKS. I TAKE THIS BEFORE BED AND WAKE UP FEELING HUMAN AGAIN.
+          </blockquote>
+          <div class="flex items-center gap-4">
+            <img src="https://placehold.co/48x48/0d1f3c/ffffff?text=MG" alt="Matt G." class="rounded-full w-12 h-12 object-cover" />
+            <div>
+              <p class="font-semibold text-navy text-sm">Matt G.</p>
+              <p class="text-navy/40 text-xs uppercase tracking-wider">Verified Alpine Customer</p>
+            </div>
+            <div class="ml-auto flex gap-1">
+              <span class="text-peach">★★★★★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       REVIEWS
+  ═══════════════════════════════════════ -->
+  <section id="reviews" class="py-24 md:py-32 px-6 md:px-12" style="background: #fff;">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-14 reveal">
+        <div>
+          <p class="text-alpine font-semibold uppercase tracking-widest text-sm mb-3">Customer Reviews</p>
+          <h2 class="font-display font-black italic text-navy" style="font-size: clamp(2.5rem, 4.5vw, 3.8rem); letter-spacing: -0.03em; line-height: 0.92;">
+            REAL RESULTS.<br/>REAL PEOPLE.
+          </h2>
+        </div>
+        <div class="mt-6 md:mt-0 flex items-baseline gap-3">
+          <span class="font-display font-black italic text-navy" style="font-size: 4rem; letter-spacing:-0.03em; line-height:1;">4.9</span>
+          <div>
+            <div class="text-peach text-xl mb-1">★★★★★</div>
+            <p class="text-navy/40 text-xs uppercase tracking-wider">2,400+ reviews</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review grid -->
+      <div class="grid md:grid-cols-3 gap-6">
+
+        <div class="review-card bg-snow rounded-2xl p-8 reveal" style="transition-delay: 0.05s;">
+          <div class="text-peach mb-4">★★★★★</div>
+          <p class="text-navy font-medium mb-6" style="font-size: 0.95rem; line-height: 1.7;">
+            "Best hangover recovery product I've ever tried. The Peach Mango actually tastes amazing and I wake up feeling completely normal. Game changer."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/40x40/0d1f3c/ffffff?text=MG" alt="Matt G." class="rounded-full w-10 h-10" />
+            <div>
+              <p class="font-semibold text-navy text-sm">Matt G.</p>
+              <p class="text-navy/40 text-xs">Verified Buyer · Denver, CO</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card bg-snow rounded-2xl p-8 reveal" style="transition-delay: 0.12s;">
+          <div class="text-peach mb-4">★★★★★</div>
+          <p class="text-navy font-medium mb-6" style="font-size: 0.95rem; line-height: 1.7;">
+            "I take this before bed every time I drink. My mornings have completely changed. No more wasted Sundays. The electrolyte levels are incredible."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/40x40/234a85/ffffff?text=SK" alt="Sarah K." class="rounded-full w-10 h-10" />
+            <div>
+              <p class="font-semibold text-navy text-sm">Sarah K.</p>
+              <p class="text-navy/40 text-xs">Verified Buyer · Austin, TX</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card bg-snow rounded-2xl p-8 reveal" style="transition-delay: 0.19s;">
+          <div class="text-peach mb-4">★★★★★</div>
+          <p class="text-navy font-medium mb-6" style="font-size: 0.95rem; line-height: 1.7;">
+            "Compared this to Liquid IV and the electrolyte profile is insane. And the B-vitamin stack is real, not pixie-dusted. Worth every penny."
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/40x40/1a3560/ffffff?text=JT" alt="Jake T." class="rounded-full w-10 h-10" />
+            <div>
+              <p class="font-semibold text-navy text-sm">Jake T.</p>
+              <p class="text-navy/40 text-xs">Verified Buyer · Nashville, TN</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════ -->
+  <section id="faq" class="py-24 md:py-32 px-6 md:px-12" style="background: #f4f9fd;">
+    <div class="max-w-3xl mx-auto">
+
+      <div class="text-center mb-14 reveal">
+        <p class="text-alpine font-semibold uppercase tracking-widest text-sm mb-3">Got Questions</p>
+        <h2 class="font-display font-black italic text-navy" style="font-size: clamp(2.5rem, 4.5vw, 3.5rem); letter-spacing: -0.03em; line-height: 0.92;">
+          FREQUENTLY ASKED
+        </h2>
+      </div>
+
+      <div class="space-y-0 reveal" id="faq-list">
+
+        <div class="faq-item border-t border-navy/10 py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between gap-6">
+            <h3 class="font-semibold text-navy text-base">How does Alpine Reset work?</h3>
+            <span class="faq-icon text-navy/40 text-2xl leading-none flex-shrink-0">+</span>
+          </div>
+          <div class="faq-body">
+            <p class="text-navy/55 text-sm pt-4" style="line-height:1.8;">
+              Alpine Reset combines a high-dose electrolyte blend, cellular hydration technology, and B-vitamins to counteract the three main causes of a rough morning after drinking: dehydration, nutrient depletion, and inflammation. Mix one scoop with 16 oz of water, drink before bed, and wake up feeling ready.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border-t border-navy/10 py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between gap-6">
+            <h3 class="font-semibold text-navy text-base">When should I take Alpine Reset?</h3>
+            <span class="faq-icon text-navy/40 text-2xl leading-none flex-shrink-0">+</span>
+          </div>
+          <div class="faq-body">
+            <p class="text-navy/55 text-sm pt-4" style="line-height:1.8;">
+              For best results, take one scoop with 16 oz of water before going to sleep. This allows the electrolyte and vitamin blend to work while your body is in recovery mode during sleep. You can also take a second serving in the morning if needed.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border-t border-navy/10 py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between gap-6">
+            <h3 class="font-semibold text-navy text-base">Is Alpine Reset all-natural?</h3>
+            <span class="faq-icon text-navy/40 text-2xl leading-none flex-shrink-0">+</span>
+          </div>
+          <div class="faq-body">
+            <p class="text-navy/55 text-sm pt-4" style="line-height:1.8;">
+              Yes. Alpine Reset uses natural fruit flavors, plant-based colors, and no artificial sweeteners, dyes, or preservatives. We use stevia leaf extract as a natural sweetener. Every ingredient is clean-label and non-GMO.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border-t border-navy/10 py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between gap-6">
+            <h3 class="font-semibold text-navy text-base">How many servings are in one container?</h3>
+            <span class="faq-icon text-navy/40 text-2xl leading-none flex-shrink-0">+</span>
+          </div>
+          <div class="faq-body">
+            <p class="text-navy/55 text-sm pt-4" style="line-height:1.8;">
+              Each container of Alpine Reset contains 15 servings (10.58 oz / 300g). Each serving is one level scoop mixed with 12–16 oz of cold water.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item border-t border-b border-navy/10 py-6 cursor-pointer" onclick="toggleFaq(this)">
+          <div class="flex items-center justify-between gap-6">
+            <h3 class="font-semibold text-navy text-base">Can I take Alpine Reset if I'm not drinking?</h3>
+            <span class="faq-icon text-navy/40 text-2xl leading-none flex-shrink-0">+</span>
+          </div>
+          <div class="faq-body">
+            <p class="text-navy/55 text-sm pt-4" style="line-height:1.8;">
+              Absolutely. Alpine Reset is an excellent everyday hydration and recovery supplement. Athletes use it post-workout, travelers use it for jet lag, and many people use it daily as a superior alternative to standard sports drinks.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       NEWSLETTER
+  ═══════════════════════════════════════ -->
+  <section class="relative overflow-hidden grain py-24 px-6 md:px-12"
+           style="background: linear-gradient(135deg, #0d1f3c 0%, #142a52 100%);">
+
+    <!-- Mountain decoration -->
+    <div style="position:absolute; bottom:0; left:0; right:0; pointer-events:none; opacity:0.08;">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" style="width:100%; height:200px; display:block;">
+        <polygon points="0,200 0,120 200,60 400,100 600,40 800,80 1000,30 1200,70 1440,45 1440,200" fill="#4fa3e8"/>
+      </svg>
+    </div>
+
+    <div class="relative z-10 max-w-2xl mx-auto text-center reveal">
+      <div class="badge mb-6 mx-auto">Alpine Community</div>
+      <h2 class="font-display font-black italic text-white mb-4" style="font-size: clamp(2.4rem, 4.5vw, 3.8rem); letter-spacing: -0.03em; line-height: 0.95;">
+        STAY IN THE KNOW
+      </h2>
+      <p class="text-white/55 mb-10" style="line-height: 1.75; font-size: 1rem;">
+        Recovery tips, new flavors, and exclusive offers — delivered to your inbox. No spam. Unsubscribe anytime.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-3" onsubmit="return false;">
+        <input type="email" class="email-input flex-1" placeholder="Your email address" aria-label="Email address" />
+        <button type="submit" class="btn-primary flex-shrink-0 whitespace-nowrap">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════ -->
+  <footer style="background: #080f1e;" class="py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+
+      <!-- Top footer -->
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 mb-14 pb-14 border-b border-white/8">
+
+        <!-- Logo + description -->
+        <div class="col-span-2 lg:col-span-2">
+          <img src="brand_assets/AlpineLogo.JPG" alt="Alpine Nutrition" class="h-8 mb-5"
+               style="filter: invert(1) brightness(10); opacity: 0.85;" />
+          <p class="text-white/40 text-sm" style="line-height: 1.75; max-width: 260px;">
+            Premium nutrition engineered for recovery. Built for people who live fully and wake up ready.
+          </p>
+          <!-- Social icons -->
+          <div class="flex gap-4 mt-6">
+            <a href="#" class="text-white/30 hover:text-white/70 transition-opacity duration-200" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="text-white/30 hover:text-white/70 transition-opacity duration-200" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.22 6.22 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.87a8.18 8.18 0 004.79 1.52V7a4.86 4.86 0 01-1.02-.31z"/></svg>
+            </a>
+            <a href="#" class="text-white/30 hover:text-white/70 transition-opacity duration-200" aria-label="Twitter / X">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Explore -->
+        <div>
+          <h4 class="text-white font-semibold text-xs uppercase tracking-widest mb-5">Explore</h4>
+          <ul class="space-y-3">
+            <li><a href="#product" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Shop</a></li>
+            <li><a href="#science" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">The Science</a></li>
+            <li><a href="#reviews" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Reviews</a></li>
+            <li><a href="#faq" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h4 class="text-white font-semibold text-xs uppercase tracking-widest mb-5">Support</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Contact Us</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Shipping Policy</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Returns</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Track Order</a></li>
+          </ul>
+        </div>
+
+        <!-- Connect -->
+        <div>
+          <h4 class="text-white font-semibold text-xs uppercase tracking-widest mb-5">Connect</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Instagram</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">TikTok</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Ambassador Program</a></li>
+            <li><a href="#" class="text-white/40 hover:text-white/80 text-sm transition-opacity duration-200">Wholesale</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom footer -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-white/25 text-xs">
+          © 2026 Alpine Nutrition. All rights reserved.
+        </p>
+        <div class="flex gap-6">
+          <a href="#" class="text-white/25 hover:text-white/50 text-xs transition-opacity duration-200">Privacy Policy</a>
+          <a href="#" class="text-white/25 hover:text-white/50 text-xs transition-opacity duration-200">Terms of Service</a>
+          <a href="#" class="text-white/25 hover:text-white/50 text-xs transition-opacity duration-200">Accessibility</a>
+        </div>
+        <p class="text-white/15 text-xs">
+          *These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════ -->
+  <script>
+    // ── Nav scroll effect ──
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── FAQ accordion ──
+    function toggleFaq(item) {
+      const body = item.querySelector('.faq-body');
+      const icon = item.querySelector('.faq-icon');
+      const isOpen = body.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-body').forEach(b => b.classList.remove('open'));
+      document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('open'));
+
+      // Open clicked
+      if (!isOpen) {
+        body.classList.add('open');
+        icon.classList.add('open');
+      }
+    }
+
+    // ── Science claims accordion ──
+    function toggleClaim(item) {
+      const body = item.querySelector('.claim-body');
+      const icon = item.querySelector('.claim-icon');
+      const isOpen = body.style.maxHeight && body.style.maxHeight !== '0px';
+
+      // Close all claims
+      document.querySelectorAll('.claim-body').forEach(b => { b.style.maxHeight = '0'; });
+      document.querySelectorAll('.claim-icon').forEach(i => { i.style.transform = 'rotate(0deg)'; i.textContent = '+'; });
+
+      if (!isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+        icon.textContent = '+';
+      }
+    }
+  </script>
+
+</body>
+</html>
